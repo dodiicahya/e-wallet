@@ -7,24 +7,29 @@ module.exports = (sequelize, DataTypes) => {
     },
     balance: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
     },
     balance_achieve: {
       type: DataTypes.INTEGER,
-      allowNull: false,
-    },created_at: {
+      allowNull: true,
+    },createdAt: {
 			type: DataTypes.DATE,
 			allowNull: false,
 			defaultValue: sequelize.literal('CURRENT_TIMESTAMP')
 		},
-		updated_at: {
+		updatedAt: {
 			type: DataTypes.DATE,
-			allowNull: true,
+      allowNull: true,
+      defaultValue: sequelize.fn("NOW")
     }
   }, {});
   user_balance.associate = function(models) {
     models.user_balance.hasMany(models.user, {
       foreignKey: "id"
+    });
+    models.user_balance.hasOne(models.user_balance_histories, {
+      foreignKey: "user_balance_id",
+      as:"history"
     });
   };
   return user_balance;

@@ -24,4 +24,15 @@ module.exports = (app) => {
 		.then(result => res.status(result.status).send(result))
 		.catch(err => next(err))  
     })
+    
+    app.get(basePath+'/balance/history',(req,res,next)=>{
+        return userSvc.userBalanceHistory(req.user)
+		.then(result => res.send(result))
+		.catch(err => next(err))  
+    })
+    app.get(basePath+'/balance',(req,res,next)=>{
+        return userSvc.userBalance(req.user)
+		.then(result => res.status(result.status).send(result))
+		.catch(err => next(err))  
+    })
 }

@@ -5,6 +5,10 @@ const userDB = require('../repository/user')
 const urlRoutes = [
     {path:'/users/profile',auth:true},
     {path:'/users/add',auth:true},
+    {path:'/users/balance',auth:true},
+    {path:'/users/balance/history',auth:true},
+    {path:'/users/transactions/topup',auth:true},
+    {path:'/users/transactions/transfer',auth:true},
 ]
 const authenticate = async (req,res,next)=>{
     const filterUrl=matcherUrl(req._parsedUrl.pathname, urlRoutes)

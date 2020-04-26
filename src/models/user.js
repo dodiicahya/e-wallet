@@ -18,6 +18,11 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       defaultValue:'users'
     },
+    balance:{
+      allowNull: true,
+      type: DataTypes.DECIMAL(15,2),
+      defaultValue:0
+    },
     is_login:{
       type: DataTypes.BOOLEAN,
       allowNull: false,
@@ -35,7 +40,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {});
   user.associate = function(models) {
-    models.user.belongsTo(models.user_balance, {
+    models.user.hasMany(models.user_balance, {
       foreignKey: "id"
     });
   };
