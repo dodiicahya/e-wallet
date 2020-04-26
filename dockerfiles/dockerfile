@@ -1,0 +1,6 @@
+FROM mysql:8.0.17
+
+RUN apt-get update
+
+RUN apt-get update && apt-get install -y --no-install-recommends bzip2 unzip apt-utils curl wget
+#CMD ["mysqld"]

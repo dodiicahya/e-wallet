@@ -1,0 +1,17 @@
+version: '3.0'
+services:
+  db:
+    build:
+      context: .
+      dockerfile: dockerfile
+    container_name: mini-wallet
+    environment:
+      MYSQL_DATABASE: "ewallet"
+      MYSQL_USER: "ewallet"
+      MYSQL_PASSWORD: "ewallet"
+      MYSQL_ROOT_PASSWORD: "ewallet"
+    ports:
+    # <Port exposed> : < Port running inside container>
+    - "3307:3306"
+    volumes:
+    - ./persistence/data:/var/lib/mysql:rw
