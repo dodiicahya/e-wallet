@@ -7,6 +7,7 @@ module.exports = {
       email: 'admin@example.com',
       password:'$2a$10$mlSSYO547NgkCRY2PJEAg.tsVxT5PUq4yVVYncjMHNftGIdoK3qnS',
       user_type:'system',
+      balance:0,
       createdAt: new Date(),
       updatedAt: new Date()
     }]);
