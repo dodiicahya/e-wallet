@@ -66,7 +66,7 @@ module.exports = (app) => {
    *              },
    *              "amount": {
    *                  "type": "decimal",
-   *                  "example": 1000000.00
+   *                  "example": 1000000
    *              },
    *              "username": {
    *                  "type": "string",
@@ -78,7 +78,9 @@ module.exports = (app) => {
    *       201:
    *         description: Successfully create transaction transfer
    */
-    app.put(basePath+'/transfer',(req,res,next)=>{
+    app.post(basePath+'/transfer',(req,res,next)=>{
+        console.log(req.user);
+        
         req.body.userAgent = req.get('User-Agent');
         req.body.ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress
         return transSvc.transferTransaction(req.body,req.user)

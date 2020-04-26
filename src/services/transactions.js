@@ -31,9 +31,11 @@ const transferTransaction = async(data,users)=>{
         const arrStore = []
         const dataStore1 = {}
         const dataStore = {}
+        if(!data.hasOwnProperty('username')){return {status:404,message:'please check your request'}}
+        const dtUserTarget = await userDB.findUser({username:data.username})
+        if(dtUserTarget == null || dtUserTarget == undefined){return {status:404,message:'cannot process transfer, user not found'}}
         const dtUser = await userDB.findUser({username:users.username})
         if(dtUser.balance >= data.amount){
-            if(!data.hasOwnProperty('username')){return {status:404,message:'please check your request'}}
             const updatedBalance = Number(dtUser.balance) - Number(data.amount)
             dataStore.user_id = dtUser.id
             dataStore.balance = data.amount
@@ -45,7 +47,6 @@ const transferTransaction = async(data,users)=>{
             dataStore.afterBalance = updatedBalance
             arrStore.push(dataStore)
             await userDB.update({balance:updatedBalance},{id:dtUser.id})
-            const dtUserTarget = await userDB.findUser({username:data.username})
             const updatedBalanceTarget = Number(dtUserTarget.balance) + Number(data.amount)
             arrStore.map(val =>{
                 dataStore1.user_id = dtUserTarget.id
