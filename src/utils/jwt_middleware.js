@@ -9,6 +9,7 @@ const urlRoutes = [
     {path:'/users/balance/history',auth:true},
     {path:'/users/transactions/topup',auth:true},
     {path:'/users/transactions/transfer',auth:true},
+    {path:'/users/password/change',auth:true},
 ]
 const authenticate = async (req,res,next)=>{
     const filterUrl=matcherUrl(req._parsedUrl.pathname, urlRoutes)

@@ -177,4 +177,42 @@ module.exports = (app) => {
 		.then(result => res.status(result.status).send(result))
 		.catch(err => next(err))  
     })
+        /**
+   * @swagger
+   * /users/password/change:
+   *   put:
+   *     tags:
+   *       - Users
+   *     description: update password
+   *     produces:
+   *       - application/json
+   *     security:
+   *      - Bearer: []
+   *     parameters:
+   *       - name: body
+   *         description: update password
+   *         in: body
+   *         schema: {
+   *          "type": "object",
+   *          "required": true,
+   *          "properties": {
+   *              "old_password": {
+   *                  "type": "string",
+   *                  "example": "1234"
+   *              },
+   *              "new_password": {
+   *                  "type": "string",
+   *                  "example": "1234"
+   *              }
+   *           }
+   *        }
+   *     responses:
+   *       200:
+   *         description: Successfully update password
+   */
+    app.put(basePath+'/password/change',(req,res,next)=>{
+        return userSvc.updatePassword(req.body,req.user)
+		.then(result => res.status(result.status).send(result))
+		.catch(err => next(err))  
+    })
 }

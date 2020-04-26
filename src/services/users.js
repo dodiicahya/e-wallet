@@ -55,6 +55,15 @@ const userBalance = async(data)=>{
         return {status:200,balance:user.balance}
     }
 }
+
+const updatePassword = async(data,users)=>{
+    const user = await userDB.findUser({username:users.username})
+    const checkPass = await utils.compareBcrypt(data.old_password, user.password)
+    if(!checkPass){return{status:403,message:"old password not correct"}}
+    let encryptPassword = utils.bcryptGenerate(data.new_password)
+    await userDB.update({password:encryptPassword},{id:user.id})
+    return {status:200,message:'updated'}
+}
 module.exports = {
     register,
     signUser,
@@ -62,5 +71,5 @@ module.exports = {
     logout,
     userBalanceHistory,
     userBalance,
-    
+    updatePassword
 }
